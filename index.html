@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BoNeZu — Indie Game Studio</title>
+  <meta name="description" content="BoNeZu is an independent game development studio crafting bold, original games across PC and console." />
+
+  <meta property="og:title" content="BoNeZu — Indie Game Studio" />
+  <meta property="og:description" content="Independent studio crafting bold, original games." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg-2: #12121a;
+      --bg-3: #1a1a26;
+      --fg: #e9e9f0;
+      --fg-dim: #9ea0b3;
+      --accent: #ff3d7f;
+      --accent-2: #4ee1c1;
+      --border: #25253a;
+      --radius: 14px;
+      --max: 1200px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Space Grotesk', system-ui, -apple-system, Segoe UI, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { color: var(--accent); }
+    h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 0.5em; }
+    h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); }
+    h3 { font-size: 1.25rem; }
+    p { margin: 0 0 1em; color: var(--fg-dim); }
+    .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+    /* layout */
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 1.5rem; }
+    section { padding: 6rem 0; border-top: 1px solid var(--border); }
+    section:first-of-type { border-top: none; }
+
+    .eyebrow {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 1rem;
+    }
+
+    /* nav */
+    nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .wrap { display: flex; align-items: center; justify-content: space-between; padding-top: 1rem; padding-bottom: 1rem; }
+    .brand { display: flex; align-items: center; gap: 0.75rem; font-weight: 700; font-size: 1.1rem; color: var(--fg); }
+    .brand img { width: 32px; height: 32px; border-radius: 6px; background: var(--bg-3); }
+    .nav-links { display: flex; gap: 1.75rem; }
+    .nav-links a { color: var(--fg-dim); font-size: 0.95rem; }
+    .nav-links a:hover { color: var(--fg); }
+    @media (max-width: 720px) { .nav-links { display: none; } }
+
+    /* hero */
+    .hero {
+      position: relative;
+      padding: 7rem 0 6rem;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255, 61, 127, 0.18), transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(78, 225, 193, 0.15), transparent 50%);
+      pointer-events: none;
+    }
+    .hero .wrap { position: relative; }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      max-width: 900px;
+      background: linear-gradient(135deg, var(--fg) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero .lead { font-size: 1.2rem; max-width: 600px; color: var(--fg-dim); }
+    .cta-row { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 1.5rem; border-radius: var(--radius);
+      font-weight: 500; font-size: 0.95rem;
+      transition: transform 0.15s ease, background 0.15s ease;
+      border: 1px solid transparent;
+    }
+    .btn-primary { background: var(--accent); color: #0a0a0f; }
+    .btn-primary:hover { background: #ff5a93; color: #0a0a0f; transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--fg); border-color: var(--border); }
+    .btn-ghost:hover { background: var(--bg-2); color: var(--fg); transform: translateY(-2px); }
+
+    /* about */
+    .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: center; }
+    @media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; gap: 2rem; } }
+    .about-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1.5rem; }
+    .stat {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.25rem;
+    }
+    .stat .n { font-family: 'JetBrains Mono', monospace; font-size: 1.75rem; color: var(--accent-2); font-weight: 700; }
+    .stat .l { font-size: 0.85rem; color: var(--fg-dim); }
+
+    .about-img {
+      aspect-ratio: 4/5;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background-image: url('assets/studio.jpg');
+      background-size: cover; background-position: center;
+      position: relative;
+    }
+    .about-img::after {
+      content: 'studio photo placeholder';
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--fg-dim); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
+      opacity: 0.5;
+    }
+
+    /* games */
+    .games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .game {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      display: flex; flex-direction: column;
+    }
+    .game:hover { transform: translateY(-4px); border-color: var(--accent); }
+    .game-cover {
+      aspect-ratio: 16/9;
+      background: var(--bg-3);
+      background-size: cover; background-position: center;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+    .game-cover::after {
+      content: attr(data-label);
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--fg-dim); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+      opacity: 0.4;
+    }
+    .game-body { padding: 1.25rem 1.25rem 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .game-meta {
+      display: flex; gap: 0.5rem; flex-wrap: wrap;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+      color: var(--accent-2); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .tag { padding: 0.2rem 0.55rem; background: rgba(78, 225, 193, 0.1); border: 1px solid rgba(78, 225, 193, 0.3); border-radius: 4px; }
+    .tag.released { color: var(--accent-2); }
+    .tag.soon { color: var(--accent); background: rgba(255, 61, 127, 0.1); border-color: rgba(255, 61, 127, 0.3); }
+    .game h3 { margin-bottom: 0.5rem; }
+    .game p { font-size: 0.95rem; flex: 1; }
+    .game-links { display: flex; gap: 1rem; font-size: 0.85rem; margin-top: 0.5rem; }
+
+    /* team */
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+    .person { text-align: center; }
+    .portrait {
+      aspect-ratio: 1; width: 100%;
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background-size: cover; background-position: center;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .portrait::after {
+      content: 'portrait';
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--fg-dim); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+      opacity: 0.4;
+    }
+    .person h3 { margin-bottom: 0.2rem; }
+    .person .role { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .person p { font-size: 0.9rem; }
+
+    /* press */
+    .press-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-top: 2rem; }
+    .press-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem;
+    }
+    .press-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+    .press-card p { font-size: 0.9rem; margin-bottom: 0.75rem; }
+
+    /* contact */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+    @media (max-width: 720px) { .contact-grid { grid-template-columns: 1fr; gap: 2rem; } }
+    .contact-block h3 { margin-bottom: 0.25rem; }
+    .contact-block p { margin-bottom: 0.5rem; font-size: 0.95rem; }
+    .contact-block a { font-family: 'JetBrains Mono', monospace; font-size: 1rem; }
+    .socials { display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; }
+    .socials a {
+      padding: 0.5rem 1rem;
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: var(--radius); color: var(--fg); font-size: 0.9rem;
+    }
+    .socials a:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0;
+      text-align: center;
+      color: var(--fg-dim);
+      font-size: 0.85rem;
+    }
+    footer .mono { color: var(--accent-2); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="wrap">
+      <div class="brand">
+        <img src="assets/logo.png" alt="BoNeZu logo" />
+        <span>BoNeZu</span>
+      </div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#games">Games</a>
+        <a href="#team">Team</a>
+        <a href="#press">Press</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Independent Game Studio</span>
+      <h1>We make games worth losing sleep over.</h1>
+      <p class="lead">BoNeZu is a small team of designers, artists, and engineers building bold, original games for PC and console.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#games">See our games</a>
+        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="about-grid">
+        <div>
+          <span class="eyebrow">About BoNeZu</span>
+          <h2>A studio built on craft, curiosity, and weird ideas.</h2>
+          <p>Founded in 2021, BoNeZu started as a side project between three friends who couldn't stop prototyping. Today we're a tight-knit independent studio working on original IP across multiple platforms.</p>
+          <p>We believe games are at their best when they take risks. Every project we ship begins with a question we don't already know the answer to.</p>
+          <div class="about-stats">
+            <div class="stat"><div class="n">5+</div><div class="l">Years shipping</div></div>
+            <div class="stat"><div class="n">3</div><div class="l">Titles released</div></div>
+            <div class="stat"><div class="n">8</div><div class="l">Team members</div></div>
+            <div class="stat"><div class="n">12</div><div class="l">Countries reached</div></div>
+          </div>
+        </div>
+        <div class="about-img" role="img" aria-label="Studio photo"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="games">
+    <div class="wrap">
+      <span class="eyebrow">Our Games</span>
+      <h2>What we've made — and what's coming next.</h2>
+      <p style="max-width: 600px; margin-bottom: 3rem;">From puzzle-platformers to narrative roguelikes, every BoNeZu title is built by hand with love and obsession.</p>
+
+      <div class="games-grid">
+        <article class="game">
+          <div class="game-cover" data-label="game cover 1" style="background-image: url('assets/games/game-1-cover.jpg');"></div>
+          <div class="game-body">
+            <div class="game-meta">
+              <span class="tag released">Released</span>
+              <span class="tag">PC · Switch</span>
+            </div>
+            <h3>Hollow Signal</h3>
+            <p>A surreal first-person mystery set in an abandoned radio observatory. Listen carefully — the static is talking.</p>
+            <div class="game-links">
+              <a href="#">Steam</a>
+              <a href="#">Press kit</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="game">
+          <div class="game-cover" data-label="game cover 2" style="background-image: url('assets/games/game-2-cover.jpg');"></div>
+          <div class="game-body">
+            <div class="game-meta">
+              <span class="tag released">Released</span>
+              <span class="tag">PC · PS5 · Xbox</span>
+            </div>
+            <h3>Paper Kingdom</h3>
+            <p>A hand-drawn action-adventure where every enemy you defeat becomes a new page in your storybook.</p>
+            <div class="game-links">
+              <a href="#">Steam</a>
+              <a href="#">Trailer</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="game">
+          <div class="game-cover" data-label="game cover 3" style="background-image: url('assets/games/game-3-cover.jpg');"></div>
+          <div class="game-body">
+            <div class="game-meta">
+              <span class="tag soon">Coming 2026</span>
+              <span class="tag">PC</span>
+            </div>
+            <h3>Untitled Sky Project</h3>
+            <p>An open-world flight sim built around procedural weather and emergent storytelling. Wishlist now.</p>
+            <div class="game-links">
+              <a href="#">Wishlist on Steam</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="team">
+    <div class="wrap">
+      <span class="eyebrow">Key People</span>
+      <h2>The team behind the work.</h2>
+      <p style="max-width: 600px; margin-bottom: 3rem;">A small group of people who care a lot about the same things.</p>
+
+      <div class="team-grid">
+        <div class="person">
+          <div class="portrait" style="background-image: url('assets/team/person-1.jpg');"></div>
+          <h3>Alex Bone</h3>
+          <div class="role">Co-founder · Game Director</div>
+          <p>Leads creative direction. Previously at studios shipping AA action-adventure titles.</p>
+        </div>
+        <div class="person">
+          <div class="portrait" style="background-image: url('assets/team/person-2.jpg');"></div>
+          <h3>Nezuko Vance</h3>
+          <div class="role">Co-founder · Lead Engineer</div>
+          <p>Builds the engines, tools, and pipelines that hold everything together.</p>
+        </div>
+        <div class="person">
+          <div class="portrait" style="background-image: url('assets/team/person-3.jpg');"></div>
+          <h3>Mira Chen</h3>
+          <div class="role">Art Director</div>
+          <p>Sets visual direction across every project. Watercolor obsessive.</p>
+        </div>
+        <div class="person">
+          <div class="portrait" style="background-image: url('assets/team/person-4.jpg');"></div>
+          <h3>Sam Okafor</h3>
+          <div class="role">Audio Lead</div>
+          <p>Composer and sound designer. Believes every game needs a great bass line.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="press">
+    <div class="wrap">
+      <span class="eyebrow">Press &amp; Resources</span>
+      <h2>For press, partners, and creators.</h2>
+      <p style="max-width: 600px;">Everything you need to write about, stream, or feature our games.</p>
+
+      <div class="press-grid">
+        <div class="press-card">
+          <h3>Press Kit</h3>
+          <p>Logos, screenshots, key art, fact sheets, and trailers for all our titles.</p>
+          <a href="assets/press/bonezu-press-kit.zip">Download (.zip)</a>
+        </div>
+        <div class="press-card">
+          <h3>Streaming Policy</h3>
+          <p>You're free to monetize videos and streams of any BoNeZu game. No permission needed.</p>
+          <a href="#contact">Questions? Contact us</a>
+        </div>
+        <div class="press-card">
+          <h3>Brand Assets</h3>
+          <p>Studio logo, color palette, and brand guidelines in one place.</p>
+          <a href="assets/press/bonezu-brand.zip">Download (.zip)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <span class="eyebrow">Contact</span>
+      <h2>Say hello.</h2>
+
+      <div class="contact-grid">
+        <div class="contact-block">
+          <h3>General</h3>
+          <p>For anything that doesn't fit the categories below.</p>
+          <a href="mailto:hello@bonezu.com">hello@bonezu.com</a>
+
+          <h3 style="margin-top: 2rem;">Press &amp; Media</h3>
+          <p>Interviews, previews, review codes, and press kits.</p>
+          <a href="mailto:press@bonezu.com">press@bonezu.com</a>
+        </div>
+
+        <div class="contact-block">
+          <h3>Business &amp; Partnerships</h3>
+          <p>Publishing, porting, licensing, and platform inquiries.</p>
+          <a href="mailto:business@bonezu.com">business@bonezu.com</a>
+
+          <h3 style="margin-top: 2rem;">Follow us</h3>
+          <p>Updates, dev logs, and behind-the-scenes.</p>
+          <div class="socials">
+            <a href="https://twitter.com/" target="_blank" rel="noopener">Twitter / X</a>
+            <a href="https://bsky.app/" target="_blank" rel="noopener">Bluesky</a>
+            <a href="https://youtube.com/" target="_blank" rel="noopener">YouTube</a>
+            <a href="https://discord.com/" target="_blank" rel="noopener">Discord</a>
+            <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p class="mono">&copy; 2026 BoNeZu Studios — made with too much coffee.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
